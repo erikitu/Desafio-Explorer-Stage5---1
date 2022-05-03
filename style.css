@@ -1,0 +1,105 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+:root{
+  font-size: 62.5%;
+  font-family: 'Roboto', sans-serif;
+
+  --bg-card: #E1E1E6;
+  --bg-card-selected: #02799D;
+  --img-card: #323238;
+  --imgcard-selected: #FFFFFF;
+
+}
+
+.page{
+  align-self: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  align-items: center;
+  max-width: 82rem;
+  margin: auto;
+
+}
+
+.pageTimer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-right: 19rem;
+}
+
+.pageTimerDisplay {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 4.8rem;
+}
+
+.pageTimerDisplay span {
+  font-size: 12.6rem;
+  font-weight: 500;
+  line-height: 14.8rem;
+}
+
+.pageTimerControls {
+  align-items: center;
+  display: flex;
+  gap: 4.0rem;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  
+  cursor: pointer;
+  
+}
+
+.pageCardWrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3.2rem;
+  max-width: fit-content;
+
+  cursor: pointer;
+
+}
+
+.pageCardWrapperForest svg path,.pageCardWrapperRain svg path,.pageCardWrapperCoffeeShop svg path, .pageCardWrapperFirePlace svg path {
+  fill: var(--img-card);
+
+}
+
+.pageCardWrapperForest,.pageCardWrapperRain,.pageCardWrapperCoffeeShop, .pageCardWrapperFirePlace {
+  background-color: var(--bg-card);
+
+  border-radius: 2.4rem;
+  min-height: 15.2rem;
+  width: clamp(10rem, 10rem + 30vw, 13.8rem);
+  height: clamp(asd);
+  margin: auto;
+  padding: 4.2rem;
+
+  justify-content: center;
+  align-items: center;
+}
+
+
+.selected{
+  background-color: var(--bg-card-selected);
+  
+}
+
+.selected svg path {
+  fill: var(--imgcard-selected);
+}
