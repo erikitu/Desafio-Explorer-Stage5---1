@@ -35,6 +35,13 @@ function updateDisplay(minutes, seconds) {
   secondsDisplay.textContent = String(seconds).padStart(2, "0");
 }
 
+function resetTimer() {
+  minutesDisplay.textContent = String(0).padStart(2, "0");
+  secondsDisplay.textContent = String(0).padStart(2, "0");
+  clearTimeout(timerTimeOut);
+  sound.pause();
+}
+
 function countDown() {
   timerTimeOut = setTimeout(function () {
     let minutes = Number(minutesDisplay.textContent);
@@ -47,7 +54,7 @@ function countDown() {
     }
 
     if (seconds <= 0) {
-      seconds = 2;
+      seconds = 60;
 
       --minutes;
     }
@@ -56,6 +63,7 @@ function countDown() {
     countDown();
   }, 1000);
 }
+
 function removeSelectedClass() {
   cardForest.classList.remove("selected");
   cardRain.classList.remove("selected");
@@ -88,7 +96,7 @@ buttonPlay.addEventListener("click", function () {
 });
 buttonStop.addEventListener("click", function () {
   buttonPressAudio.play();
-  clearTimeout(timerTimeOut);
+  resetTimer();
 });
 
 cardForest.addEventListener("click", function () {
@@ -96,22 +104,29 @@ cardForest.addEventListener("click", function () {
   removeSelectedClass();
   cardForest.classList.add("selected");
   sound = forestSound;
+  forestSound.loop = true;
 });
 cardRain.addEventListener("click", function () {
+  sound.pause();
   buttonPressAudio.play();
   removeSelectedClass();
   cardRain.classList.add("selected");
   sound = rainSound;
+  rainSound.loop = true;
 });
 cardCoffeShop.addEventListener("click", function () {
+  sound.pause();
   buttonPressAudio.play();
   removeSelectedClass();
   cardCoffeShop.classList.add("selected");
   sound = coffeeShopSound;
+  coffeeShopSound.loop = true;
 });
 cardFirePlace.addEventListener("click", function () {
+  sound.pause();
   buttonPressAudio.play();
   removeSelectedClass();
   cardFirePlace.classList.add("selected");
   sound = firePlaceSound;
+  firePlaceSound.loop = true;
 });
