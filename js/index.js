@@ -9,11 +9,18 @@ const buttonPlay = document.querySelector(".pageTimerControlsPlay");
 const buttonStop = document.querySelector(".pageTimerControlsStop");
 const buttonMoreTime = document.querySelector(".pageTimerControlsMoreTime");
 const buttonMinusTime = document.querySelector(".pageTimerControlsMinusTime");
+const buttonDarkMode = document.querySelector(".darkMode");
+const buttonBrightMode = document.querySelector(".brightMode");
+const forestVolume = document.querySelector(".forestVol");
+const rainVolume = document.querySelector(".rainVol");
+const coffeeShopSoundVolume = document.querySelector(".coffeeShopSoundVol");
+const firePlaceVolume = document.querySelector(".firePlaceVol");
 //cards
 const cardForest = document.querySelector(".pageCardWrapperForest");
 const cardRain = document.querySelector(".pageCardWrapperRain");
-const cardCoffeShop = document.querySelector(".pageCardWrapperCoffeeShop");
+const cardCoffeeShop = document.querySelector(".pageCardWrapperCoffeeShop");
 const cardFirePlace = document.querySelector(".pageCardWrapperFirePlace");
+const pageMode = document.body;
 //sounds
 const kitchenTimer = new Audio(
   "https://github.com/maykbrito/automatic-video-creator/blob/master/audios/kichen-timer.mp3?raw=true"
@@ -25,9 +32,20 @@ const forestSound = new Audio("./sounds/Floresta.wav");
 const rainSound = new Audio("./sounds/Chuva.wav");
 const coffeeShopSound = new Audio("./sounds/Cafeteria.wav");
 const firePlaceSound = new Audio("./sounds/Lareira.wav");
+let sound;
 
-function bgAudio() {
+function bgAudioPlay() {
   sound.play();
+}
+
+function setVolume(value) {
+  sound.volume = value / 100;
+}
+
+function toggleMode() {
+  pageMode.classList.toggle("dark");
+  buttonBrightMode.classList.toggle("hide");
+  buttonDarkMode.classList.toggle("hide");
 }
 
 function updateDisplay(minutes, seconds) {
@@ -40,6 +58,11 @@ function resetTimer() {
   secondsDisplay.textContent = String(0).padStart(2, "0");
   clearTimeout(timerTimeOut);
   sound.pause();
+}
+function resetBgAudio() {
+  if (sound != undefined) {
+    sound.pause();
+  }
 }
 
 function countDown() {
@@ -67,8 +90,12 @@ function countDown() {
 function removeSelectedClass() {
   cardForest.classList.remove("selected");
   cardRain.classList.remove("selected");
-  cardCoffeShop.classList.remove("selected");
+  cardCoffeeShop.classList.remove("selected");
   cardFirePlace.classList.remove("selected");
+}
+function addSelectedOn(cardName) {
+  removeSelectedClass();
+  cardName.classList.add("selected");
 }
 
 buttonMoreTime.addEventListener("click", function () {
@@ -89,44 +116,70 @@ buttonMinusTime.addEventListener("click", function () {
   return;
 });
 
+buttonDarkMode.addEventListener("click", function () {
+  toggleMode();
+});
+
+buttonBrightMode.addEventListener("click", function () {
+  toggleMode();
+});
+
 buttonPlay.addEventListener("click", function () {
   buttonPressAudio.play();
   countDown();
-  bgAudio();
 });
 buttonStop.addEventListener("click", function () {
   buttonPressAudio.play();
   resetTimer();
+  removeSelectedClass();
 });
 
 cardForest.addEventListener("click", function () {
-  buttonPressAudio.play();
-  removeSelectedClass();
-  cardForest.classList.add("selected");
+  resetBgAudio();
+  addSelectedOn(cardForest);
   sound = forestSound;
   forestSound.loop = true;
+  bgAudioPlay();
 });
 cardRain.addEventListener("click", function () {
-  sound.pause();
-  buttonPressAudio.play();
-  removeSelectedClass();
-  cardRain.classList.add("selected");
+  resetBgAudio();
+  addSelectedOn(cardRain);
   sound = rainSound;
   rainSound.loop = true;
+  bgAudioPlay();
 });
-cardCoffeShop.addEventListener("click", function () {
-  sound.pause();
-  buttonPressAudio.play();
-  removeSelectedClass();
-  cardCoffeShop.classList.add("selected");
+cardCoffeeShop.addEventListener("click", function () {
+  resetBgAudio();
+  addSelectedOn(cardCoffeeShop);
   sound = coffeeShopSound;
   coffeeShopSound.loop = true;
+  bgAudioPlay();
 });
 cardFirePlace.addEventListener("click", function () {
-  sound.pause();
-  buttonPressAudio.play();
-  removeSelectedClass();
-  cardFirePlace.classList.add("selected");
+  resetBgAudio();
+  addSelectedOn(cardFirePlace);
   sound = firePlaceSound;
   firePlaceSound.loop = true;
+  bgAudioPlay();
 });
+
+forestVolume.onchange = function () {
+  if (sound != undefined) {
+    setVolume(document.querySelector(".forestVol").value);
+  }
+};
+rainVolume.onchange = function () {
+  if (sound != undefined) {
+    setVolume(document.querySelector(".rainVol").value);
+  }
+};
+coffeeShopSoundVolume.onchange = function () {
+  if (sound != undefined) {
+    setVolume(document.querySelector(".coffeeShopSoundVol").value);
+  }
+};
+firePlaceVolume.onchange = function () {
+  if (sound != undefined) {
+    setVolume(document.querySelector(".firePlaceVol").value);
+  }
+};

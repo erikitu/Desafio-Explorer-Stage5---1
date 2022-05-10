@@ -7,12 +7,37 @@
 :root{
   font-size: 62.5%;
   font-family: 'Roboto', sans-serif;
+  color: hsl(0, 0%, 0%);
+  --base: 240;
+  --bg-card: hsl(var(--base), 9%, 89%);
+  --bg-card-selected: hsl(194, 97%, 31%);
+  --img-card: hsl(240, 6%, 21%);
+  --imgcard-selected: hsl(0, 0%, 100%);
+  --tc-base: hsl(0, 0%, 0%);
+  --bt-base: hsl(240, 6%, 21%);
+  
+}
 
-  --bg-card: #E1E1E6;
-  --bg-card-selected: #02799D;
-  --img-card: #323238;
-  --imgcard-selected: #FFFFFF;
 
+header button {
+  position: absolute;
+  top: 6rem;
+  right: 10rem;
+  
+}
+
+.dark{
+  background-color: hsl(0, 0%, 0%);
+  --bg-card: hsl(240, 6%, 17%);
+  --bg-card-selected: hsl(195, 74%, 15%);
+  --img-card:hsl(0, 0%, 100%);
+  --tc-base: hsl(0, 0%, 100%);
+  --bt-base: hsl(240, 7%, 78%);
+  
+}
+
+.hide{
+  display: none;
 }
 
 .page{
@@ -33,6 +58,13 @@
   text-align: center;
   justify-content: center;
   margin-right: 19rem;
+  color: var(--tc-base);
+
+  animation: showIn 750ms 200ms backwards;
+}
+
+.pageTimerControls svg path {
+  fill: var(--bt-base);
 }
 
 .pageTimerDisplay {
@@ -83,23 +115,81 @@ button {
 .pageCardWrapperForest,.pageCardWrapperRain,.pageCardWrapperCoffeeShop, .pageCardWrapperFirePlace {
   background-color: var(--bg-card);
 
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
   border-radius: 2.4rem;
   min-height: 15.2rem;
   width: clamp(10rem, 10rem + 30vw, 13.8rem);
-  height: clamp(asd);
   margin: auto;
-  padding: 4.2rem;
+  
 
   justify-content: center;
   align-items: center;
+  animation: showIn 700ms forwards
 }
 
+.pageCardWrapperForest:hover ,.pageCardWrapperRain:hover ,.pageCardWrapperCoffeeShop:hover , .pageCardWrapperFirePlace:hover {
+  animation: smoothEnlarge 700ms ease-out forwards;
+} 
 
 .selected{
+  --img-card: hsl(0, 0%, 100%);
   background-color: var(--bg-card-selected);
   
+}
+
+.vol {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 6.8em;
+  height: 0.4em;
+  border-radius: 5px;
+  background-color: var(--img-card);
+  outline: none;
+}
+
+.vol::-webkit-slider-thumb{
+
+
+  -webkit-appearance: none; /* remove a aparencia padão */
+   border: none;
+  
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--img-card);
 }
 
 .selected svg path {
   fill: var(--imgcard-selected);
 }
+
+
+
+@keyframes smoothEnlarge {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0.9;
+    transform: scale(1.3);
+  
+
+  }
+}
+
+@keyframes showIn {
+  0%{
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px);
+  
+
+  }
+}
+
